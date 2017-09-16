@@ -112,7 +112,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *hoursInADay = self.weatherData.forecast10Days[indexPath.row];
-    CGFloat height = [hoursInADay count] / 4 * 100 + 16 + 68 + 16;
+    CGFloat height = [hoursInADay count] / 4 * 100 + 16 + 68;
     if ([hoursInADay count] % 4 != 0) height += 100;
     NSLog(@"%ld", indexPath.row);
     return height;
