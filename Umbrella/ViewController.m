@@ -28,20 +28,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeather) name:UIApplicationWillEnterForegroundNotification object:nil];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:@{@"fahrenheit":@YES, @"zip":@"94137"}];
     [DataManager sharedInstance].zipCode = [defaults stringForKey:@"zip"];
     [DataManager sharedInstance].fahrenheit = [defaults boolForKey:@"fahrenheit"];
-    
     [self updateWeather];
 }
 
@@ -52,7 +48,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)configureView {
@@ -74,6 +69,16 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
         if(error) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok= [UIAlertAction
+                                actionWithTitle:@"OK"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction *action)
+                                {
+                                    [alert dismissViewControllerAnimated:YES completion:nil];
+                                }];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
             NSLog(@"%@", error.localizedDescription);
         }else{
             if(json[@"response"][@"error"]) {
@@ -84,7 +89,6 @@
                                     handler:^(UIAlertAction *action)
                                     {
                                         [alert dismissViewControllerAnimated:YES completion:nil];
-                                        
                                     }];
                 [alert addAction:ok];
                 [self presentViewController:alert animated:YES completion:nil];
@@ -114,7 +118,6 @@
     NSArray *hoursInADay = self.weatherData.forecast10Days[indexPath.row];
     CGFloat height = [hoursInADay count] / 4 * 100 + 16 + 68;
     if ([hoursInADay count] % 4 != 0) height += 100;
-    NSLog(@"%ld", indexPath.row);
     return height;
 }
 
@@ -157,7 +160,6 @@
         cell.temperatureLabel.textColor = [UIColor blackColor];
         cell.conditionLabel.textColor = [UIColor blackColor];
     }
-    
     // display
     cell.hourLabel.text = data.hour;
     cell.temperatureLabel.text = [NSString stringWithFormat:@"%.0f°",[DataManager sharedInstance].fahrenheit ? data.temperature.fahrenheit : data.temperature.celsius];
