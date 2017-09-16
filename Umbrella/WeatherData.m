@@ -7,20 +7,34 @@
 //
 
 #import "WeatherData.h"
+#import "ForecastData.h"
 
 @implementation WeatherData
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if(self) {
-        dict = dict[@"current_observation"];
-        self.location = dict[@"display_location"][@"full"];
+        NSDictionary *currentDict = dict[@"current_observation"];
+        self.location = currentDict[@"display_location"][@"full"];
         
-        float fahrenheit = [dict[@"temp_f"] floatValue];
-        float celsius = [dict[@"temp_c"] floatValue];
+        float fahrenheit = [currentDict[@"temp_f"] floatValue];
+        float celsius = [currentDict[@"temp_c"] floatValue];
         self.currentTemperature = UTemperatureMake(fahrenheit, celsius);
         
-        self.conditionDescription = dict[@"weather"];
+        self.conditionDescription = currentDict[@"weather"];
+        
+        NSArray *hourlyForecast = dict[@"hourly_forecast"];
+        
+        NSMutableArray *result;
+        NSString *currentDate;
+        for (NSDictionary *hourItem in hourlyForecast) {
+            if(![hourItem[@"FCTTIME"][@"mday"] isEqualToString:currentDate]) {
+                currentDate = [NSString stringWithString:hourItem[@"FCTTIME"][@"mday"]];
+                [result addObject:@[]];
+            }
+            ForecastData *data = [[ForecastData alloc] initWithDictionary:hourItem];
+            [[result lastObject] addObject:data];
+        }
     }
     return self;
 }

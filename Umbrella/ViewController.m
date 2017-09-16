@@ -12,7 +12,9 @@
 #import "WeatherData.h"
 
 @interface ViewController ()
+
 @property (weak, nonatomic) IBOutlet UIView *navbarView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
@@ -25,17 +27,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    [self updateWeather];
-}
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeather) name:UIApplicationWillEnterForegroundNotification object:nil];
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults:@{@"fahrenheit":@YES, @"zip":@"94137"}];
+    [DataManager sharedInstance].zipCode = [defaults stringForKey:@"zip"];
+    [DataManager sharedInstance].fahrenheit = [defaults boolForKey:@"fahrenheit"];
+    
+    [self updateWeather];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)configureView {
@@ -44,10 +58,18 @@
     [self.navbarView.layer setShadowOffset:CGSizeMake(0, 3)];
     [self.navbarView.layer setShadowRadius:5];
     [self.navbarView.layer setShadowOpacity:0.5];
+    
+    UIRefreshControl *refreshControl =[UIRefreshControl new];
+    [refreshControl addTarget:self action:@selector(updateWeather) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = refreshControl;
 }
 
 - (void)updateWeather {
-    [DataManager getCurrentWeatherForLocation:@"30080" completionHandler:^(NSDictionary *json, NSError *error) {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[DataManager sharedInstance] getCurrentWeatherForLocation:[DataManager sharedInstance].zipCode completionHandler:^(NSDictionary *json, NSError *error) {
+        [self.tableView.refreshControl endRefreshing];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
         if(error) {
             NSLog(@"%@", error.localizedDescription);
         }else{
@@ -56,7 +78,7 @@
                 UIAlertAction *ok= [UIAlertAction
                                     actionWithTitle:@"OK"
                                     style:UIAlertActionStyleDefault
-                                    handler:^(UIAlertAction * action)
+                                    handler:^(UIAlertAction *action)
                                     {
                                         [alert dismissViewControllerAnimated:YES completion:nil];
                                         
@@ -67,7 +89,7 @@
                 self.weatherData = [[WeatherData alloc] initWithDictionary:json];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.locationLabel.text = self.weatherData.location;
-                    self.temperatureLabel.text = [NSString stringWithFormat:@"%.1f°", self.weatherData.currentTemperature.fahrenheit];
+                    self.temperatureLabel.text = [NSString stringWithFormat:@"%.1f°", [DataManager sharedInstance].fahrenheit ? self.weatherData.currentTemperature.fahrenheit : self.weatherData.currentTemperature.celsius];
                     self.weatherLabel.text = self.weatherData.conditionDescription;
                     if(self.weatherData.currentTemperature.fahrenheit > 60) {
                         [self.navbarView setBackgroundColor:[UIColor colorWithRed:1.00 green:0.60 blue:0.00 alpha:1.0]];

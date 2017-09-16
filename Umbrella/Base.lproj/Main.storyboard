@@ -113,6 +113,29 @@
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                         <rect key="frame" x="0.0" y="0.0" width="79" height="93"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="11:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKy-CG-gh5">
+                                                                                <rect key="frame" x="4" y="7" width="70" height="21"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhS-Zg-f7j">
+                                                                                <rect key="frame" x="27" y="61" width="25" height="21"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="cloudy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8M-Su-Xok">
+                                                                                <rect key="frame" x="13" y="36" width="52" height="21"/>
+                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
                                                                     </view>
                                                                     <size key="customSize" width="79" height="93"/>
                                                                 </collectionViewCell>
@@ -136,15 +159,6 @@
                                                                 </collectionViewCell>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="i65-Ik-QdI">
                                                                     <rect key="frame" x="287" y="0.0" width="79" height="93"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="93"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                    </view>
-                                                                    <size key="customSize" width="79" height="93"/>
-                                                                </collectionViewCell>
-                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bFL-16-5VC">
-                                                                    <rect key="frame" x="0.0" y="103" width="79" height="93"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                         <rect key="frame" x="0.0" y="0.0" width="79" height="93"/>
@@ -206,6 +220,7 @@
                     <connections>
                         <outlet property="locationLabel" destination="agB-Oa-ZT8" id="2FS-pJ-Qtb"/>
                         <outlet property="navbarView" destination="E3O-hH-efE" id="S5e-dn-2Nl"/>
+                        <outlet property="tableView" destination="VEG-LR-6mX" id="elk-ep-jdC"/>
                         <outlet property="temperatureLabel" destination="Zc3-I3-QuC" id="eJA-yz-Ev0"/>
                         <outlet property="weatherLabel" destination="EhD-3H-IJA" id="lke-Dx-Vg7"/>
                     </connections>

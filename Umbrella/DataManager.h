@@ -10,8 +10,11 @@
 
 @interface DataManager : NSObject
 
-+ (void)getCurrentWeatherForLocation:(NSString *)zipCode completionHandler:(void(^)(NSDictionary *response, NSError *error))completion;
+@property (assign, nonatomic) BOOL fahrenheit;
+@property (copy, nonatomic) NSString *zipCode;
 
-- (id)sharedInstance;
+- (void)getCurrentWeatherForLocation:(NSString *)zipCode completionHandler:(void(^)(NSDictionary *response, NSError *error))completion;
+
++ (DataManager *)sharedInstance;
 
 @end

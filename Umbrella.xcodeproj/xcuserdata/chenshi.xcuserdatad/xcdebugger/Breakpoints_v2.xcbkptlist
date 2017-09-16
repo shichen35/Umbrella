@@ -15,7 +15,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
             endingLineNumber = "23"
-            landmarkName = "+getCurrentWeatherForLocation:completionHandler:"
+            landmarkName = "+sharedInstance"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Umbrella/ViewController.m"
+            timestampString = "527272549.774546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-updateWeather"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Umbrella/ViewController.m"
-            timestampString = "527206626.668774"
+            timestampString = "527272473.785537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "-updateWeather"
             landmarkType = "7">
             <Locations>
@@ -38,46 +54,31 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__31-[ViewController updateWeather]_block_invoke_2"
+                  symbolName = "__31-[ViewController updateWeather]_block_invoke"
                   moduleName = "Umbrella"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chenshi/Desktop/Umbrella/Umbrella/ViewController.m"
-                  timestampString = "527206627.685388"
+                  timestampString = "527272550.864448"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "90">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "1350">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_"
+                  symbolName = "__31-[ViewController updateWeather]_block_invoke.120"
                   moduleName = "Umbrella"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chenshi/Desktop/Umbrella/Umbrella/ViewController.m"
-                  timestampString = "527206627.688089"
+                  timestampString = "527272550.869758"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "51">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "Umbrella"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chenshi/Desktop/Umbrella/Umbrella/ViewController.m"
-                  timestampString = "527206627.692507"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "29">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "15">
                </Location>
             </Locations>
          </BreakpointContent>

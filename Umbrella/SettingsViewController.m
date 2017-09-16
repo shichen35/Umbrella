@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "SettingsCell.h"
+#import "DataManager.h"
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -19,11 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerClass:[SettingsCell class]  forCellReuseIdentifier:@"SettingsCell"];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +29,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
 }
 
 #pragma mark - Table view data source
@@ -53,11 +48,11 @@
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"Zip";
-            cell.detailTextLabel.text = @"30080";
+            cell.detailTextLabel.text = [DataManager sharedInstance].zipCode;
             break;
         case 1:
             cell.textLabel.text = @"Units";
-            cell.detailTextLabel.text = @"Fahrenheit";
+            cell.detailTextLabel.text = [DataManager sharedInstance].fahrenheit ? @"Fahrenheit" : @"Celsius";
             break;
         default:
             break;
@@ -77,6 +72,11 @@
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction * action)
                                  {
+                                     [DataManager sharedInstance].zipCode = alert.textFields[0].text;
+                                     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                     [defaults setObject:alert.textFields[0].text forKey:@"zip"];
+                                     [defaults synchronize];
+                                     [tableView reloadData];
                                      [alert dismissViewControllerAnimated:YES completion:nil];
                                      
                                  }];
@@ -86,7 +86,6 @@
                                      handler:^(UIAlertAction * action)
                                      {
                                          [alert dismissViewControllerAnimated:YES completion:nil];
-                                         
                                      }];
             [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
                 textField.placeholder = @"Zipcode";
@@ -104,14 +103,23 @@
                                 style:UIAlertActionStyleDefault
                                 handler:^(UIAlertAction * action)
                                 {
+                                    [DataManager sharedInstance].fahrenheit = YES;
+                                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                    [defaults setBool:YES forKey:@"fahrenheit"];
+                                    [defaults synchronize];
+                                    [tableView reloadData];
                                     [alert dismissViewControllerAnimated:YES completion:nil];
-                                    
                                 }];
             UIAlertAction *celsius = [UIAlertAction
                                      actionWithTitle:@"Celsius"
                                      style:UIAlertActionStyleDefault
                                      handler:^(UIAlertAction * action)
                                      {
+                                         [DataManager sharedInstance].fahrenheit = NO;
+                                         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                         [defaults setBool:NO forKey:@"fahrenheit"];
+                                         [defaults synchronize];
+                                         [tableView reloadData];
                                          [alert dismissViewControllerAnimated:YES completion:nil];
                                          
                                      }];
