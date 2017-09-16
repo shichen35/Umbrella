@@ -8,8 +8,11 @@
 
 #import "ViewController.h"
 #import "ForecastTableViewCell.h"
+#import "ForecastCollectionViewCell.h"
 #import "DataManager.h"
 #import "WeatherData.h"
+#import "ForecastData.h"
+#import "UIColor+Customs.h"
 
 @interface ViewController ()
 
@@ -28,7 +31,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeather) name:UIApplicationWillEnterForegroundNotification object:nil];
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,10 +95,11 @@
                     self.temperatureLabel.text = [NSString stringWithFormat:@"%.1f°", [DataManager sharedInstance].fahrenheit ? self.weatherData.currentTemperature.fahrenheit : self.weatherData.currentTemperature.celsius];
                     self.weatherLabel.text = self.weatherData.conditionDescription;
                     if(self.weatherData.currentTemperature.fahrenheit > 60) {
-                        [self.navbarView setBackgroundColor:[UIColor colorWithRed:1.00 green:0.60 blue:0.00 alpha:1.0]];
+                        [self.navbarView setBackgroundColor:[UIColor warmColor]];
                     }else{
-                        [self.navbarView setBackgroundColor:[UIColor colorWithRed:0.01 green:0.66 blue:0.96 alpha:1.0]];
+                        [self.navbarView setBackgroundColor:[UIColor coolColor]];
                     }
+                    [self.tableView reloadData];
                 });
             }
         }
@@ -103,12 +107,68 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return self.weatherData.forecast10Days.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *hoursInADay = self.weatherData.forecast10Days[indexPath.row];
+    CGFloat height = [hoursInADay count] / 4 * 100 + 16 + 68 + 16;
+    if ([hoursInADay count] % 4 != 0) height += 100;
+    NSLog(@"%ld", indexPath.row);
+    return height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ForecastTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ForecastCell"];
+    [cell setCollectionViewDataSourceDelegate:self forRow:indexPath.row];
+    ForecastData *data = self.weatherData.forecast10Days[indexPath.row][0];
+    switch (indexPath.row) {
+        case 0:
+            cell.sectionHeaderLabel.text = @"Today";
+            break;
+        case 1:
+            cell.sectionHeaderLabel.text = @"Tomorrow";
+            break;
+        default:
+            cell.sectionHeaderLabel.text = data.weekday;
+            break;
+    }
     return cell;
 }
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self.weatherData.forecast10Days[collectionView.tag] count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ForecastCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastDayCell" forIndexPath:indexPath];
+    ForecastData *data = self.weatherData.forecast10Days[collectionView.tag][indexPath.row];
+    // color
+    if (data.highest) {
+        cell.hourLabel.textColor = [UIColor warmColor];
+        cell.temperatureLabel.textColor = [UIColor warmColor];
+        cell.conditionLabel.textColor = [UIColor warmColor];
+    }else if (data.lowest) {
+        cell.hourLabel.textColor = [UIColor coolColor];
+        cell.temperatureLabel.textColor = [UIColor coolColor];
+        cell.conditionLabel.textColor = [UIColor coolColor];
+    }else{
+        cell.hourLabel.textColor = [UIColor blackColor];
+        cell.temperatureLabel.textColor = [UIColor blackColor];
+        cell.conditionLabel.textColor = [UIColor blackColor];
+    }
+    
+    // display
+    cell.hourLabel.text = data.hour;
+    cell.temperatureLabel.text = [NSString stringWithFormat:@"%.0f°",[DataManager sharedInstance].fahrenheit ? data.temperature.fahrenheit : data.temperature.celsius];
+    cell.conditionLabel.text = data.conditionDescription;
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat cellWidth = collectionView.frame.size.width / 4 - 20;
+    CGFloat cellHeight = 90;
+    CGSize cellSize = CGSizeMake(cellWidth, cellHeight);
+    return cellSize;
+}
 @end

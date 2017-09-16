@@ -14,11 +14,17 @@
 //  section header title
 @property (copy, nonatomic) NSString *weekday;
 
+//  hour text
+@property (copy, nonatomic) NSString *hour;
+
 //  Description of the hour's conditions
 @property (copy, nonatomic) NSString *conditionDescription;
 
 //  Hour's temperature
 @property (assign, nonatomic) UTemperature temperature;
+
+@property (assign, nonatomic) BOOL highest;
+@property (assign, nonatomic) BOOL lowest;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 @end

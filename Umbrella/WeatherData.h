@@ -124,6 +124,7 @@ static inline UTemperature UTemperatureMake(float fahrenheit, float celsius) {
 //  Day's current temperature
 @property (assign, nonatomic) UTemperature currentTemperature;
 
+@property (copy, nonatomic) NSArray *forecast10Days;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 

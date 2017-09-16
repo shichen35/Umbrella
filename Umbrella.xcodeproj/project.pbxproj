@@ -22,6 +22,9 @@
 		59DEDDA31F68601B009ECE06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59DEDDA11F68601B009ECE06 /* LaunchScreen.storyboard */; };
 		59DEDDAE1F68601B009ECE06 /* UmbrellaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DEDDAD1F68601B009ECE06 /* UmbrellaTests.m */; };
 		59DEDDB91F68601B009ECE06 /* UmbrellaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DEDDB81F68601B009ECE06 /* UmbrellaUITests.m */; };
+		59E239381F6DAED800BABEE7 /* UIColor+Customs.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E239371F6DAED800BABEE7 /* UIColor+Customs.m */; };
+		59E2393C1F6DB4DF00BABEE7 /* NSString+Substring.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E2393B1F6DB4DF00BABEE7 /* NSString+Substring.m */; };
+		59E239401F6DB54000BABEE7 /* Climacons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59E2393F1F6DB54000BABEE7 /* Climacons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,11 @@
 		59DEDDB41F68601B009ECE06 /* UmbrellaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmbrellaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DEDDB81F68601B009ECE06 /* UmbrellaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UmbrellaUITests.m; sourceTree = "<group>"; };
 		59DEDDBA1F68601B009ECE06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59E239371F6DAED800BABEE7 /* UIColor+Customs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Customs.m"; sourceTree = "<group>"; };
+		59E239391F6DB0AF00BABEE7 /* UIColor+Customs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Customs.h"; sourceTree = "<group>"; };
+		59E2393A1F6DB4DF00BABEE7 /* NSString+Substring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Substring.h"; sourceTree = "<group>"; };
+		59E2393B1F6DB4DF00BABEE7 /* NSString+Substring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Substring.m"; sourceTree = "<group>"; };
+		59E2393F1F6DB54000BABEE7 /* Climacons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Climacons.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +180,10 @@
 				596B63D21F69DA5C00B360C2 /* Views */,
 				596B63D41F69DA9A00B360C2 /* Models */,
 				596B63D31F69DA6E00B360C2 /* ViewControllers */,
+				59E239351F6DADB200BABEE7 /* Categories */,
 				59DEDD9C1F68601B009ECE06 /* Main.storyboard */,
 				59DEDD9F1F68601B009ECE06 /* Assets.xcassets */,
+				59E2393F1F6DB54000BABEE7 /* Climacons.ttf */,
 				59DEDDA11F68601B009ECE06 /* LaunchScreen.storyboard */,
 				59DEDDA41F68601B009ECE06 /* Info.plist */,
 				59DEDD931F68601B009ECE06 /* Supporting Files */,
@@ -205,6 +215,17 @@
 				59DEDDBA1F68601B009ECE06 /* Info.plist */,
 			);
 			path = UmbrellaUITests;
+			sourceTree = "<group>";
+		};
+		59E239351F6DADB200BABEE7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				59E2393A1F6DB4DF00BABEE7 /* NSString+Substring.h */,
+				59E2393B1F6DB4DF00BABEE7 /* NSString+Substring.m */,
+				59E239391F6DB0AF00BABEE7 /* UIColor+Customs.h */,
+				59E239371F6DAED800BABEE7 /* UIColor+Customs.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +339,7 @@
 			files = (
 				59DEDDA31F68601B009ECE06 /* LaunchScreen.storyboard in Resources */,
 				59DEDDA01F68601B009ECE06 /* Assets.xcassets in Resources */,
+				59E239401F6DB54000BABEE7 /* Climacons.ttf in Resources */,
 				59DEDD9E1F68601B009ECE06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,11 +368,13 @@
 				596B642A1F6C72AA00B360C2 /* DataManager.m in Sources */,
 				596B641E1F6C4EA300B360C2 /* ForecastTableViewCell.m in Sources */,
 				59DEDD9B1F68601B009ECE06 /* ViewController.m in Sources */,
+				59E2393C1F6DB4DF00BABEE7 /* NSString+Substring.m in Sources */,
 				596B64241F6C6A0C00B360C2 /* WeatherData.m in Sources */,
 				596B642F1F6D882700B360C2 /* ForecastData.m in Sources */,
 				59DEDD981F68601B009ECE06 /* AppDelegate.m in Sources */,
 				596B64211F6C4F1800B360C2 /* ForecastCollectionViewCell.m in Sources */,
 				59DEDD951F68601B009ECE06 /* main.m in Sources */,
+				59E239381F6DAED800BABEE7 /* UIColor+Customs.m in Sources */,
 				596B63D71F69E04E00B360C2 /* SettingsViewController.m in Sources */,
 				596B63DA1F69FFA100B360C2 /* SettingsCell.m in Sources */,
 			);

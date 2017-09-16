@@ -8,6 +8,11 @@
 
 #import "ForecastTableViewCell.h"
 
+@interface ForecastTableViewCell()
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@end
+
 @implementation ForecastTableViewCell
 
 - (void)awakeFromNib {
@@ -18,13 +23,19 @@
     [self.cardView.layer setShadowOffset:CGSizeMake(0, 1)];
     [self.cardView.layer setShadowRadius:1];
     [self.cardView.layer setShadowOpacity:0.7];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDelegate,UICollectionViewDataSource>)dataSource forRow:(NSInteger)row {
+    _collectionView.dataSource = dataSource;
+    _collectionView.delegate = dataSource;
+    _collectionView.tag = row;
+    [_collectionView reloadData];
 }
 
 @end
