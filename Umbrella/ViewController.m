@@ -65,9 +65,10 @@
 - (void)updateWeather {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [[DataManager sharedInstance] getCurrentWeatherForLocation:[DataManager sharedInstance].zipCode completionHandler:^(NSDictionary *json, NSError *error) {
-        [self.tableView.refreshControl endRefreshing];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.refreshControl endRefreshing];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        });
         if(error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok= [UIAlertAction
