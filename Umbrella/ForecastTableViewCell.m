@@ -17,7 +17,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
     [self.cardView.layer setCornerRadius:5];
     [self.cardView.layer setShadowColor:[UIColor grayColor].CGColor];
     [self.cardView.layer setShadowOffset:CGSizeMake(0, 1)];
@@ -27,8 +26,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDelegate,UICollectionViewDataSource>)dataSource forRow:(NSInteger)row {
