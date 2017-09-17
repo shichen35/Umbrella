@@ -169,7 +169,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat cellWidth = collectionView.frame.size.width / 4 - 20;
+    CGFloat cellWidth = collectionView.frame.size.width / 4 - 10;
     CGFloat cellHeight = 90;
     CGSize cellSize = CGSizeMake(cellWidth, cellHeight);
     return cellSize;
