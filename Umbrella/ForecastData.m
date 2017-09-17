@@ -11,6 +11,7 @@
 
 @implementation ForecastData
 
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if(self) {
@@ -23,6 +24,7 @@
     }
     return self;
 }
+
 
 - (NSString *)iconForCondition:(NSString *)condition
 {
@@ -54,5 +56,6 @@
     }
     return iconName;
 }
+
 
 @end

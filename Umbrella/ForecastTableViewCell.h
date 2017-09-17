@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *sectionHeaderLabel;
 
 - (void)setCollectionViewDataSourceDelegate:(id <UICollectionViewDelegate, UICollectionViewDataSource>)dataSource forRow:(NSInteger)row;
+
 @end

@@ -108,7 +108,6 @@ typedef enum {
     ClimaconCloudDown               = 'j'
 } Climacons;
 
-
 static inline UTemperature UTemperatureMake(float fahrenheit, float celsius) {
     return (UTemperature){fahrenheit, celsius};
 }

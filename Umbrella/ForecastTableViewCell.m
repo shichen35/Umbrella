@@ -9,11 +9,13 @@
 #import "ForecastTableViewCell.h"
 
 @interface ForecastTableViewCell()
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
 @implementation ForecastTableViewCell
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -24,9 +26,11 @@
     [self.cardView.layer setShadowOpacity:0.7];
 }
 
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
+
 
 - (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDelegate,UICollectionViewDataSource>)dataSource forRow:(NSInteger)row {
     _collectionView.dataSource = dataSource;
@@ -34,5 +38,6 @@
     _collectionView.tag = row;
     [_collectionView reloadData];
 }
+
 
 @end
