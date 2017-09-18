@@ -16,7 +16,6 @@
 
 @implementation ForecastTableViewCell
 
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.cardView.layer setCornerRadius:5];
@@ -26,11 +25,9 @@
     [self.cardView.layer setShadowOpacity:0.7];
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-
 
 - (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDelegate,UICollectionViewDataSource>)dataSource forRow:(NSInteger)row {
     _collectionView.dataSource = dataSource;
@@ -38,6 +35,5 @@
     _collectionView.tag = row;
     [_collectionView reloadData];
 }
-
 
 @end

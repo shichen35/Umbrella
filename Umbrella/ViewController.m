@@ -27,13 +27,11 @@
 
 @implementation ViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeather) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -44,17 +42,14 @@
     [self updateWeather];
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 - (void)configureView {
     [self.view bringSubviewToFront:self.navbarView];
@@ -67,7 +62,6 @@
     [refreshControl addTarget:self action:@selector(updateWeather) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = refreshControl;
 }
-
 
 - (void)updateWeather {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -118,11 +112,9 @@
     }];
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.weatherData.forecast10Days.count;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *hoursInADay = self.weatherData.forecast10Days[indexPath.row];
@@ -130,7 +122,6 @@
     if ([hoursInADay count] % 4 != 0) height += 100;
     return height;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ForecastTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ForecastCell"];
@@ -150,11 +141,9 @@
     return cell;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.weatherData.forecast10Days[collectionView.tag] count];
 }
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ForecastCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastDayCell" forIndexPath:indexPath];
@@ -180,13 +169,11 @@
     return cell;
 }
 
-
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat cellWidth = collectionView.frame.size.width / 4 - 10;
     CGFloat cellHeight = 90;
     CGSize cellSize = CGSizeMake(cellWidth, cellHeight);
     return cellSize;
 }
-
 
 @end

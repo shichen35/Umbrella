@@ -18,35 +18,28 @@
 
 @implementation SettingsViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerClass:[SettingsCell class]  forCellReuseIdentifier:@"SettingsCell"];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-
 #pragma mark - Table view data source
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"SettingsCell";
@@ -67,7 +60,6 @@
     cell.detailTextLabel.textColor = [UIColor grayColor];
     return cell;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
@@ -141,11 +133,9 @@
     }
 }
 
-
 - (IBAction)backButtonAction:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 /*
 // Override to support conditional editing of the table view.

@@ -11,7 +11,6 @@
 
 @implementation WeatherData
 
-
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if(self) {

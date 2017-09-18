@@ -14,7 +14,6 @@ static NSString *baseURL =  @"https://api.wunderground.com/api/";
 static NSString *API_KEY = @"3143ee175e1a5d21";
 static NSString *featureAPI = @"/conditions/hourly10day/";
 
-
 + (DataManager *)sharedInstance {
     static DataManager *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -23,7 +22,6 @@ static NSString *featureAPI = @"/conditions/hourly10day/";
     });
     return sharedInstance;
 }
-
 
 - (void)getCurrentWeatherForLocation:(NSString *)zipCode completionHandler:(void (^)(NSDictionary *, NSError *))completion {
     NSString *location = [NSString stringWithFormat:@"q/%@.json", zipCode];
@@ -39,6 +37,5 @@ static NSString *featureAPI = @"/conditions/hourly10day/";
         }
     }] resume];
 }
-
 
 @end
