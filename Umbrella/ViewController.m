@@ -54,6 +54,8 @@
 - (void)configureView {
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 350;
+    
+    [self.view bringSubviewToFront:self.navbarView];
     [self.navbarView.layer setShadowColor:[UIColor grayColor].CGColor];
     [self.navbarView.layer setShadowOffset:CGSizeMake(0, 3)];
     [self.navbarView.layer setShadowRadius:5];
@@ -145,7 +147,7 @@
             cell.sectionHeaderLabel.text = @"Today";
             break;
         case 1:
-            cell.sectionHeaderLabel.text = @"Tox1morrow";
+            cell.sectionHeaderLabel.text = @"Tomorrow";
             break;
         default:
             cell.sectionHeaderLabel.text = data.weekday;
