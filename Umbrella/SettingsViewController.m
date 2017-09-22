@@ -7,7 +7,6 @@
 //
 
 #import "SettingsViewController.h"
-#import "SettingsCell.h"
 #import "DataManager.h"
 
 @interface SettingsViewController ()
@@ -20,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerClass:[SettingsCell class]  forCellReuseIdentifier:@"SettingsCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,6 +58,8 @@
     cell.detailTextLabel.textColor = [UIColor grayColor];
     return cell;
 }
+
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {

@@ -30,11 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeather) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWeather) name:UIApplicationWillEnterForegroundNotification object:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:@{@"fahrenheit":@YES, @"zip":@"94137"}];
     [DataManager sharedInstance].zipCode = [defaults stringForKey:@"zip"];
@@ -52,27 +52,35 @@
 }
 
 - (void)configureView {
-    [self.view bringSubviewToFront:self.navbarView];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 350;
     [self.navbarView.layer setShadowColor:[UIColor grayColor].CGColor];
     [self.navbarView.layer setShadowOffset:CGSizeMake(0, 3)];
     [self.navbarView.layer setShadowRadius:5];
     [self.navbarView.layer setShadowOpacity:0.5];
     
-    UIRefreshControl *refreshControl =[UIRefreshControl new];
-    [refreshControl addTarget:self action:@selector(updateWeather) forControlEvents:UIControlEventValueChanged];
-    self.tableView.refreshControl = refreshControl;
+    UIRefreshControl *rc = [UIRefreshControl new];
+    [rc addTarget:self action:@selector(updateWeather) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = rc;
 }
 
 - (void)updateWeather {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    if(self.tableView.contentOffset.y < 0)
+        self.tableView.scrollEnabled = NO;
+    else
+        [self.tableView setContentOffset:CGPointMake(0, 0)];
     [[DataManager sharedInstance] getCurrentWeatherForLocation:[DataManager sharedInstance].zipCode completionHandler:^(NSDictionary *json, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView.refreshControl endRefreshing];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.tableView.scrollEnabled = YES;
+            [self.tableView.refreshControl endRefreshing];
         });
         if(error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok= [UIAlertAction
+            UIAlertAction *ok = [UIAlertAction
                                 actionWithTitle:@"OK"
                                 style:UIAlertActionStyleDefault
                                 handler:^(UIAlertAction *action)
@@ -85,7 +93,7 @@
         }else{
             if(json[@"response"][@"error"]) {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:json[@"response"][@"error"][@"type"] message:json[@"response"][@"error"][@"description"] preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *ok= [UIAlertAction
+                UIAlertAction *ok = [UIAlertAction
                                     actionWithTitle:@"OK"
                                     style:UIAlertActionStyleDefault
                                     handler:^(UIAlertAction *action)
@@ -100,17 +108,21 @@
                     self.locationLabel.text = self.weatherData.location;
                     self.temperatureLabel.text = [NSString stringWithFormat:@"%.1f°", [DataManager sharedInstance].fahrenheit ? self.weatherData.currentTemperature.fahrenheit : self.weatherData.currentTemperature.celsius];
                     self.weatherLabel.text = self.weatherData.conditionDescription;
-                    if(self.weatherData.currentTemperature.fahrenheit > 60) {
-                        [self.navbarView setBackgroundColor:[UIColor warmColor]];
-                    }else{
-                        [self.navbarView setBackgroundColor:[UIColor coolColor]];
-                    }
+                    [UIView animateWithDuration:0.5 animations:^{
+                        if(self.weatherData.currentTemperature.fahrenheit > 60) {
+                            [self.navbarView setBackgroundColor:[UIColor warmColor]];
+                        }else{
+                            [self.navbarView setBackgroundColor:[UIColor coolColor]];
+                        }
+                    }];
                     [self.tableView reloadData];
                 });
             }
         }
     }];
 }
+
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.weatherData.forecast10Days.count;
@@ -121,6 +133,7 @@
     CGFloat height = [hoursInADay count] / 4 * 100 + 16 + 68;
     if ([hoursInADay count] % 4 != 0) height += 100;
     return height;
+//    return 184;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -132,7 +145,7 @@
             cell.sectionHeaderLabel.text = @"Today";
             break;
         case 1:
-            cell.sectionHeaderLabel.text = @"Tomorrow";
+            cell.sectionHeaderLabel.text = @"Tox1morrow";
             break;
         default:
             cell.sectionHeaderLabel.text = data.weekday;
@@ -140,6 +153,8 @@
     }
     return cell;
 }
+
+#pragma mark - Collection view data source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.weatherData.forecast10Days[collectionView.tag] count];

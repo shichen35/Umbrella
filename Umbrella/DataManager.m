@@ -27,8 +27,11 @@ static NSString *featureAPI = @"/conditions/hourly10day/";
     NSString *location = [NSString stringWithFormat:@"q/%@.json", zipCode];
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@%@", baseURL, API_KEY, featureAPI, location];
     NSURL *url = [NSURL URLWithString:urlString];
-    
-    [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionConfiguration *urlConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    urlConfig.timeoutIntervalForResource = 5;
+    urlConfig.timeoutIntervalForRequest = 5;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:urlConfig];
+    [[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(error) {
             completion(nil, error);
         }else{
