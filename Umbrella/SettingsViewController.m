@@ -12,13 +12,30 @@
 @interface SettingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayoutGuideConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerViewHeightConstraint;
 
 @end
 
 @implementation SettingsViewController
 
+#define topLayoutGuideHeight kStatusBarHeight + 20
+#define headerViewHeight kStatusBarHeight + 55
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.topLayoutGuideConstraint.constant = topLayoutGuideHeight;
+    self.headerViewHeightConstraint.constant = headerViewHeight;
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

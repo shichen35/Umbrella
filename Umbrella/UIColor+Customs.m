@@ -18,4 +18,9 @@
     return [UIColor colorWithRed:1.00 green:0.60 blue:0.00 alpha:1.0];
 }
 
++ (UIColor *)randomColor {
+    srand48(time(0));
+    return [UIColor colorWithRed:drand48() green:drand48() blue:drand48() alpha:1.0];
+}
+
 @end

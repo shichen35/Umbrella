@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5923B7371FB7481700B35C8B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5923B7361FB7481700B35C8B /* HomeViewController.m */; };
 		596B63D71F69E04E00B360C2 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 596B63D61F69E04E00B360C2 /* SettingsViewController.m */; };
 		596B641E1F6C4EA300B360C2 /* ForecastTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 596B641D1F6C4EA200B360C2 /* ForecastTableViewCell.m */; };
 		596B64211F6C4F1800B360C2 /* ForecastCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 596B64201F6C4F1800B360C2 /* ForecastCollectionViewCell.m */; };
@@ -44,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5923B7351FB7481700B35C8B /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		5923B7361FB7481700B35C8B /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		5923B7381FB74CE200B35C8B /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5923B73B1FB74D4500B35C8B /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		596B63D51F69E04E00B360C2 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		596B63D61F69E04E00B360C2 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		596B641C1F6C4EA200B360C2 /* ForecastTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForecastTableViewCell.h; sourceTree = "<group>"; };
@@ -131,6 +136,8 @@
 				59DEDD9A1F68601B009ECE06 /* ViewController.m */,
 				596B63D51F69E04E00B360C2 /* SettingsViewController.h */,
 				596B63D61F69E04E00B360C2 /* SettingsViewController.m */,
+				5923B7351FB7481700B35C8B /* HomeViewController.h */,
+				5923B7361FB7481700B35C8B /* HomeViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -182,6 +189,8 @@
 				59DEDDA11F68601B009ECE06 /* LaunchScreen.storyboard */,
 				59DEDDA41F68601B009ECE06 /* Info.plist */,
 				59DEDD931F68601B009ECE06 /* Supporting Files */,
+				5923B7381FB74CE200B35C8B /* PrefixHeader.pch */,
+				5923B73B1FB74D4500B35C8B /* Constants.h */,
 			);
 			path = Umbrella;
 			sourceTree = "<group>";
@@ -371,6 +380,7 @@
 				59DEDD951F68601B009ECE06 /* main.m in Sources */,
 				59E239381F6DAED800BABEE7 /* UIColor+Customs.m in Sources */,
 				596B63D71F69E04E00B360C2 /* SettingsViewController.m in Sources */,
+				5923B7371FB7481700B35C8B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BQ36HZ34XR;
+				GCC_PREFIX_HEADER = Umbrella/PrefixHeader.pch;
 				INFOPLIST_FILE = Umbrella/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshi.Umbrella;
@@ -547,6 +558,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BQ36HZ34XR;
+				GCC_PREFIX_HEADER = Umbrella/PrefixHeader.pch;
 				INFOPLIST_FILE = Umbrella/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshi.Umbrella;

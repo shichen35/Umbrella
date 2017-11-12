@@ -22,10 +22,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
 @property (strong, nonatomic) WeatherData *weatherData;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *temperatureLabelTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayoutGuideConstraint;
 
 @end
 
 @implementation ViewController
+
+#define topLayoutGuideHeight kStatusBarHeight + 20
+#define headerViewHeight kStatusBarHeight + 210
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,33 +58,31 @@
 }
 
 - (void)configureView {
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.temperatureLabel.adjustsFontSizeToFitWidth = YES;
     self.tableView.estimatedRowHeight = 350;
     
+    [self.tableView setContentInset: UIEdgeInsetsMake(self.navbarView.frame.size.height, 0, kTabbarHeight, 0)];
+    [self.tableView setScrollIndicatorInsets: UIEdgeInsetsMake(self.navbarView.frame.size.height, 0, kTabbarHeight, 0)];
     [self.view bringSubviewToFront:self.navbarView];
+    
+    self.topLayoutGuideConstraint.constant = topLayoutGuideHeight;
+    self.headerViewHeightConstraint.constant = headerViewHeight;
     [self.navbarView.layer setShadowColor:[UIColor grayColor].CGColor];
     [self.navbarView.layer setShadowOffset:CGSizeMake(0, 3)];
     [self.navbarView.layer setShadowRadius:5];
     [self.navbarView.layer setShadowOpacity:0.5];
     
-    UIRefreshControl *rc = [UIRefreshControl new];
-    [rc addTarget:self action:@selector(updateWeather) forControlEvents:UIControlEventValueChanged];
-    self.tableView.refreshControl = rc;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)updateWeather {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    if(self.tableView.contentOffset.y < 0)
-        self.tableView.scrollEnabled = NO;
-    else
-        [self.tableView setContentOffset:CGPointMake(0, 0)];
     [[DataManager sharedInstance] getCurrentWeatherForLocation:[DataManager sharedInstance].zipCode completionHandler:^(NSDictionary *json, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.tableView.scrollEnabled = YES;
-            [self.tableView.refreshControl endRefreshing];
         });
         if(error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
@@ -155,6 +159,16 @@
     }
     return cell;
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"%f", scrollView.contentOffset.y);
+    CGFloat scrollViewOffset = scrollView.contentInset.top + scrollView.contentOffset.y;
+    CGFloat scrollViewSlowerOffset = scrollViewOffset * 0.5;
+    self.headerViewHeightConstraint.constant = headerViewHeight - scrollViewOffset >= 130 + kStatusBarHeight ? headerViewHeight - scrollViewOffset : 130 + kStatusBarHeight;
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.headerViewHeightConstraint.constant, 0, kTabbarHeight, 0);
+    self.temperatureLabelTopConstraint.constant = 55 - scrollViewSlowerOffset >= 20 ? 55 - scrollViewSlowerOffset > 55 ? 55 : 55 - scrollViewSlowerOffset : 20;
+}
+
 
 #pragma mark - Collection view data source
 

@@ -12,4 +12,5 @@
 
 + (UIColor *)coolColor;
 + (UIColor *)warmColor;
++ (UIColor *)randomColor;
 @end

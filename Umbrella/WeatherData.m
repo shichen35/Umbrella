@@ -26,7 +26,7 @@
         NSArray *hourlyForecast = dict[@"hourly_forecast"];
         
         NSMutableArray *result = [NSMutableArray new];
-        NSString *currentDate;
+        NSString *currentDate = @"";
         for (id hourItem in hourlyForecast) {
             if(![hourItem[@"FCTTIME"][@"mday"] isEqualToString:currentDate]) {
                 currentDate = [NSString stringWithString:hourItem[@"FCTTIME"][@"mday"]];
